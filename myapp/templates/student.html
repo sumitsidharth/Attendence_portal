@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard - Attendance Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .dashboard-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            color: white;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 28px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .present-count {
+            color: #28a745;
+            font-size: 20px;
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Student Dashboard</h2>
+        
+        <div class="info-card">
+            <div class="info-row">
+                <span class="info-label">Name</span>
+                <span class="info-value">{{ student.name }}</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Registration Number</span>
+                <span class="info-value">{{ student.registration_number }}</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Days Present</span>
+                <span class="info-value present-count">{{ present }}</span>
+            </div>
+        </div>
+        
+<a href="/logout/" class="logout-btn" onclick="return confirm('Are you sure you want to logout? All data will be deleted!')">Logout</a>
+    </div>
+</body>
+</html>

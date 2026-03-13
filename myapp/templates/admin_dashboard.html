@@ -92,6 +92,18 @@
             transition: background 0.3s, transform 0.2s;
         }
         
+        .approve-btn {
+            padding: 8px 15px;
+            background: #023601;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
         .delete-btn:hover {
             background: #c82333;
             transform: translateY(-2px);
@@ -233,9 +245,11 @@
                             <th>Registration No.</th>
                             <th>Present</th>
                             <th>Absent</th>
+                            <th>Status</th>
                             <th>Attendance %</th>
                             <th>Action</th>
                         </tr>
+
                     </thead>
                     <tbody>
                         {% for item in students_data %}
@@ -245,13 +259,23 @@
                             <td>{{ item.present }}</td>
                             <td>{{ item.absent }}</td>
                             <td>
+                                {% if item.is_approved %}
+                                    <span style="color: green; font-weight: bold;">Approved</span>
+                                {% else %}
+                                    <span style="color: red; font-weight: bold;">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
                                 <span class="percentage {% if item.percentage >= 75 %}percentage-high{% elif item.percentage >= 50 %}percentage-medium{% else %}percentage-low{% endif %}">
                                     {{ item.percentage }}%
                                 </span>
                             </td>
                             <td>
                                 <a href="/delete_student/{{ item.student.id }}/" class="delete-btn" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
+                                <a href="/approve_student/{{ item.student.id }}/" class="approve-btn" onclick="return confirm('Approve this student?')">Approve</a>
+
                             </td>
+
                         </tr>
                         {% endfor %}
                     </tbody>

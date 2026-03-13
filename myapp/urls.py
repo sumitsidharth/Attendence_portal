@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('delete_student/<int:student_id>/', views.delete_student, name='delete_student'),
     path('delete_teacher/<int:teacher_id>/', views.delete_teacher, name='delete_teacher'),
+    path('approve_student/<int:student_id>/',views.approve_student,name="approve_student"),
 ]

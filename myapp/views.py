@@ -57,9 +57,11 @@ def login_view(request):
         elif role == "student":
             user = Student.objects.filter(name=name, password=password).first()
 
-            if user:
+            if user and user.is_approved:
                 request.session["student_id"] = user.id
                 return redirect("/student")
+            elif user:
+                error = "Account not approved by admin"
             else:
                 error = "Invalid student credentials"
 
@@ -85,6 +87,15 @@ def login_view(request):
 
     return render(request, "login.html", {"role": role, "error": error})
 
+@csrf_exempt
+def approve_student(request,student_id):
+    try:
+        student = Student.objects.get(id=student_id)
+        student.is_approved = True
+        student.save()
+    except Student.DoesNotExist:
+        pass
+    return redirect('/admin_dashboard')
 def student_dashboard(request):
 
     student_id = request.session.get("student_id")
@@ -149,7 +160,8 @@ def teacher_dashboard(request):
         data.append({
             "student": s,
             "present": present,
-            "absent": absent
+            "absent": absent,
+            "is_approved":s.is_approved
         })
 
     return render(request, "teacher.html", {"data": data})
@@ -190,7 +202,8 @@ def admin_dashboard(request):
             "student": s,
             "present": present,
             "absent": absent,
-            "percentage": percentage
+            "percentage": percentage,
+            "is_approved": s.is_approved
         })
 
     return render(request, "admin_dashboard.html", {
